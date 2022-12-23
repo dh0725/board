@@ -1,0 +1,23 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- log 정보를 남길 패턴을 입력한다. -->
+            <pattern>[%-3level] %d{yyyy-MM-dd HH:mm:ss} [%logger{0}:%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- log 가 찍히는 옵션을 지정한다. -->
+    <logger name="jdbc" level="OFF"/>
+    <logger name="jdbc.sqlonly" level="OFF"/>
+    <logger name="jdbc.sqltiming" level="DEBUG"/>
+    <logger name="jdbc.audit" level="OFF"/>
+    <logger name="jdbc.resultset" level="OFF"/>
+    <logger name="jdbc.resultsettable" level="DEBUG"/>
+    <logger name="jdbc.connection" level="OFF"/>
+
+    <!-- INFO 레벨의 log 를 콘솔에 출력한다. -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

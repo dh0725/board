@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>글목록</title>
+
+    <!-- My Css -->
+    <link rel="stylesheet" th:href="@{/css/board.css}" />
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header th:insert="~{board/common/header::header}"></header>
+
+    <div class="container">
+        <table class="table">
+            <thead class="thead-light">
+            <tr class="text-center">
+                <th scope="col">#</th>
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">작성일</th>
+                <th scope="col">조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-center" th:each="list : ${list}">
+                <th scope="row">
+                    <span th:text="${list.id}"></span>
+                </th>
+                <td>
+                    <a id="boardTitle" th:href="@{'/board/boardDetail/' + ${list.id}}">
+                        <span th:text="${list.title}"></span>
+                    </a>
+                </td>
+                <td>
+                    <span th:text="${list.registId}"></span>
+                </td>
+                <td>
+                    <span th:text="${list.registDate}"></span>
+                </td>
+                <td>
+                    <span th:text="${list.viewCnt}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row justify-content-end">
+            <div class="col-auto">
+                <a class="btn btn-primary" th:href="@{/board/boardWrite}" role="button">글쓰기</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

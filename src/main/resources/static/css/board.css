@@ -1,0 +1,7 @@
+#boardTitle {
+    text-decoration-line: none;
+}
+
+#boardRegistId, #boardRegistDate {
+    margin: 0;
+}

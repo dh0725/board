@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gidion.boardMyBatis.mapper.BoardMapper">
+    <select id="selectBoardList" resultType="BoardDTO">
+    /* BoardServiceImpl.selectBoardList */
+        SELECT
+            id
+            , title
+            , contents
+            , view_cnt
+            , regist_date
+            , regist_id
+            , update_date
+            , update_id
+            , is_deleted
+        FROM
+            board_mybatis
+        WHERE
+            is_deleted = 'N'
+        ORDER BY
+            regist_date DESC
+    </select>
+
+    <select id="selectBoardDetail" parameterType="int"
+            resultType="BoardDTO">
+    /* BoardServiceImpl.selectBoardDetail */
+        SELECT
+            id
+            , title
+            , contents
+            , view_cnt
+            , regist_date
+            , regist_id
+            , update_date
+            , update_id
+            , is_deleted
+        FROM
+            board_mybatis
+        WHERE
+            id = #{id}
+            AND is_deleted = 'N'
+    </select>
+
+    <update id="updateViewCnt" parameterType="int">
+    /* BoardServiceImpl.selectBoardDetail.updateViewCnt */
+        UPDATE
+            board_mybatis
+        SET
+            view_cnt = view_cnt + 1
+        WHERE
+            id = #{id}
+    </update>
+
+    <insert id="insertBoard" parameterType="BoardDTO">
+    /* BoardServiceImpl.insertBoard */
+        INSERT INTO board_mybatis (
+            title
+            , contents
+            , regist_date
+            , regist_id
+        ) VALUES (
+            #{title}
+            , #{contents}
+            , NOW()
+            , #{registId}
+        )
+    </insert>
+
+    <update id="updateBoard" parameterType="BoardDTO">
+    /* BoardServiceImpl.updateBoard */
+        UPDATE
+            board_mybatis
+        SET
+            title = #{title}
+            , contents = #{contents}
+            , update_date = NOW()
+            , update_id = #{updateId}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="deleteBoard" parameterType="int">
+    /* BoardServiceImpl.deleteBoard */
+        UPDATE
+            board_mybatis
+        SET
+            is_deleted = 'Y'
+            , update_date = NOW()
+            , update_id = 'ADMIN'
+        WHERE
+            id = #{id}
+    </update>
+</mapper>
