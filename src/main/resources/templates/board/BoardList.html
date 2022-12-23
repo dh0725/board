@@ -28,11 +28,11 @@
         <table class="table">
             <thead class="thead-light">
             <tr class="text-center">
-                <th scope="col">#</th>
-                <th scope="col">제목</th>
-                <th scope="col">작성자</th>
-                <th scope="col">작성일</th>
-                <th scope="col">조회수</th>
+                <th class="col-1" scope="col">#</th>
+                <th class="col-5" scope="col">제목</th>
+                <th class="col-2" scope="col">작성자</th>
+                <th class="col-2" scope="col">조회수</th>
+                <th class="col-2" scope="col">작성일</th>
             </tr>
             </thead>
             <tbody>
@@ -49,10 +49,10 @@
                     <span th:text="${list.registId}"></span>
                 </td>
                 <td>
-                    <span th:text="${list.registDate}"></span>
+                    <span th:text="${list.viewCnt}"></span>
                 </td>
                 <td>
-                    <span th:text="${list.viewCnt}"></span>
+                    <span th:text="${list.registDate}"></span>
                 </td>
             </tr>
             </tbody>
