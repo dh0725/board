@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-        <!-- ##### Database 의 underscore 케이스를 카멜 케이스로 바꾼다. ##### -->
+        <!-- Database 의 underscore 케이스를 camel 케이스로 바꾼다. -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
         <!-- 별칭을 지정한다. -->
-<!--        <typeAlias type="kr.co.gidion.boardMyBatis.mapper.BoardMapper" alias="BoardMapper" />-->
-        <typeAlias type="kr.co.gidion.boardMyBatis.dto.BoardDTO" alias="BoardDTO" />
+<!--        <typeAlias type="kr.co.gidion.board.mapper.BoardMapper" alias="BoardMapper" />-->
+        <typeAlias type="kr.co.gidion.board.dto.BoardDTO" alias="BoardDTO" />
     </typeAliases>
 </configuration>

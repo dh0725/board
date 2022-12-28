@@ -1,4 +1,4 @@
-package kr.co.gidion.boardMyBatis.config;
+package kr.co.gidion.board.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

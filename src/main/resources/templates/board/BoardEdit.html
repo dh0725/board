@@ -24,28 +24,43 @@
     <header th:insert="~{board/common/header::header}"></header>
 
     <div class="container">
-        <form th:action="@{'/board/updateBoard/' + ${board.id}}" method="post">
+        <form th:action="@{'/board/updateBoard/' + ${board.boardId}}" method="post">
             <input type="hidden" name="_method" value="put" />
-            <input type="hidden" name="id" th:value="${board.id}" />
+            <input type="hidden" name="boardId" th:value="${board.boardId}" />
             <div class="form-group row mb-3">
-                <label for="title" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+                <label for="boardTitle" class="col-sm-2 col-form-label">
+                    <strong>제목</strong>
+                </label>
                 <div class="col-sm-10">
-                    <input type="text" id="title" class="form-control"
-                           name="title" th:value="${board.title}"/>
+                    <input type="text" id="boardTitle" class="form-control"
+                           name="boardTitle" th:value="${board.boardTitle}"/>
                 </div>
             </div>
             <div class="form-group row mb-3">
-                <label for="registId" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
+                <label for="registId" class="col-sm-2 col-form-label">
+                    <strong>작성자</strong>
+                </label>
                 <div class="col-sm-10">
-                    <input type="text" id="registId" class="form-control"
-                            name="author" th:value="${board.registId}"/>
+                    <input type="text" id="registId" class="form-control" disabled
+                            name="registId" th:value="${board.registId}"/>
                 </div>
             </div>
             <div class="form-group row mb-3">
-                <label for="contents" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+                <label for="registDate" class="col-sm-2 col-form-label">
+                    <strong>작성일자</strong>
+                </label>
                 <div class="col-sm-10">
-                    <textarea type="text" id="contents" class="form-control"
-                            name="contents" th:text="${board.contents}"></textarea>
+                    <input type="text" id="registDate" class="form-control" disabled
+                            name="registDate" th:value="${#dates.format(board.registDate, 'yyyy-MM-dd HH:mm')}"/>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label for="boardContents" class="col-sm-2 col-form-label">
+                    <strong>내용</strong>
+                </label>
+                <div class="col-sm-10">
+                    <textarea type="text" id="boardContents" class="form-control"
+                            name="boardContents" th:text="${board.boardContents}"></textarea>
                 </div>
             </div>
             <div class="row justify-content-end">

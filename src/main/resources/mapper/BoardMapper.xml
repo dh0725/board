@@ -1,94 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.gidion.boardMyBatis.mapper.BoardMapper">
+<mapper namespace="kr.co.gidion.board.mapper.BoardMapper">
+    <!-- 게시판 목록을 조회한다. -->
     <select id="selectBoardList" resultType="BoardDTO">
     /* BoardServiceImpl.selectBoardList */
         SELECT
-            id
-            , title
-            , contents
-            , view_cnt
-            , regist_date
+            board_id
+            , board_title
+            , board_contents
+            , view_count
             , regist_id
-            , update_date
+            , regist_date
             , update_id
+            , update_date
             , is_deleted
         FROM
-            board_mybatis
+            board
         WHERE
             is_deleted = 'N'
         ORDER BY
             regist_date DESC
     </select>
 
+    <!-- 게시글 상세내용을 조회한다. -->
     <select id="selectBoardDetail" parameterType="int"
             resultType="BoardDTO">
     /* BoardServiceImpl.selectBoardDetail */
         SELECT
-            id
-            , title
-            , contents
-            , view_cnt
-            , regist_date
+            board_id
+            , board_title
+            , board_contents
+            , view_count
             , regist_id
-            , update_date
+            , regist_date
             , update_id
+            , update_date
             , is_deleted
         FROM
-            board_mybatis
+            board
         WHERE
-            id = #{id}
+            board_id = #{board_id}
             AND is_deleted = 'N'
     </select>
 
+    <!-- 조회한 게시글의 조회수를 1 증가한다. -->
     <update id="updateViewCnt" parameterType="int">
     /* BoardServiceImpl.selectBoardDetail.updateViewCnt */
         UPDATE
-            board_mybatis
+            board
         SET
-            view_cnt = view_cnt + 1
+            view_count = view_count + 1
         WHERE
-            id = #{id}
+            board_id = #{board_id}
     </update>
 
+    <!-- 글을 쓴다. -->
     <insert id="insertBoard" parameterType="BoardDTO">
     /* BoardServiceImpl.insertBoard */
-        INSERT INTO board_mybatis (
-            title
-            , contents
-            , regist_date
+        INSERT INTO board (
+            board_title
+            , board_contents
             , regist_id
+            , regist_date
         ) VALUES (
-            #{title}
-            , #{contents}
-            , NOW()
+            #{boardTitle}
+            , #{boardContents}
             , #{registId}
+            , NOW()
         )
     </insert>
 
+    <!-- 글을 수정한다. -->
     <update id="updateBoard" parameterType="BoardDTO">
     /* BoardServiceImpl.updateBoard */
         UPDATE
-            board_mybatis
+            board
         SET
-            title = #{title}
-            , contents = #{contents}
-            , update_date = NOW()
+            board_title = #{boardTitle}
+            , board_contents = #{boardContents}
             , update_id = #{updateId}
+            , update_date = NOW()
         WHERE
-            id = #{id}
+            board_id = #{boardId}
     </update>
 
+    <!-- 글을 삭제한다. -->
     <update id="deleteBoard" parameterType="int">
     /* BoardServiceImpl.deleteBoard */
         UPDATE
-            board_mybatis
+            board
         SET
             is_deleted = 'Y'
-            , update_date = NOW()
             , update_id = 'ADMIN'
+            , update_date = NOW()
         WHERE
-            id = #{id}
+            board_id = #{boardId}
     </update>
 </mapper>

@@ -1,14 +1,14 @@
-package kr.co.gidion.boardMyBatis.service;
+package kr.co.gidion.board.service;
 
-import kr.co.gidion.boardMyBatis.dto.BoardDTO;
-import kr.co.gidion.boardMyBatis.mapper.BoardMapper;
+import kr.co.gidion.board.dto.BoardDTO;
+import kr.co.gidion.board.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BoardServiceImpl implements  BoardService {
+public class BoardServiceImpl implements BoardService {
 
     @Autowired
     private BoardMapper boardMapper;
@@ -19,10 +19,10 @@ public class BoardServiceImpl implements  BoardService {
         return boardMapper.selectBoardList();
     }
 
-    // 게시판 상세내용을 조회한다.
+    // 게시글 상세내용을 조회한다.
     @Override
     public BoardDTO selectBoardDetail(int id) {
-        // 조회수 1 증가
+        // 조회한 게시글의 조회수를 1 증가한다.
         boardMapper.updateViewCnt(id);
 
         return boardMapper.selectBoardDetail(id);

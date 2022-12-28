@@ -25,25 +25,25 @@
 
     <div class="container">
         <form id="frm" name="frm" method="post" action="/board/insertBoard">
-            <div class="form-group row">
-                <label for="title" class="col-sm-2 col-form-label"><strong>제목</strong></label>
+            <div class="form-group row m-2">
+                <label for="boardTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
                 <div class="col-sm-10">
-                    <input type="text" name="title" class="form-control" id="title" />
+                    <input type="text" name="boardTitle" class="form-control" id="boardTitle" />
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row m-2">
                 <label for="registId" class="col-sm-2 col-form-label"><strong>작성자</strong></label>
                 <div class="col-sm-10">
                     <input type="text" name="registId" class="form-control" id="registId" />
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="contents" class="col-sm-2 col-form-label"><strong>내용</strong></label>
+            <div class="form-group row m-2">
+                <label for="boardContents" class="col-sm-2 col-form-label"><strong>내용</strong></label>
                 <div class="col-sm-10">
-                    <textarea type="text" name="contents" class="form-control" id="contents"></textarea>
+                    <textarea type="text" name="boardContents" class="form-control" id="boardContents"></textarea>
                 </div>
             </div>
-            <div class="row justify-content-end">
+            <div class="row justify-content-end m-2">
                 <div class="col-auto">
                     <input class="btn btn-primary" type="submit" role="button" value="글쓰기" />
                 </div>

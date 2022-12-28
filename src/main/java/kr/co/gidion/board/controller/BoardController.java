@@ -1,7 +1,7 @@
-package kr.co.gidion.boardMyBatis.controller;
+package kr.co.gidion.board.controller;
 
-import kr.co.gidion.boardMyBatis.dto.BoardDTO;
-import kr.co.gidion.boardMyBatis.service.BoardService;
+import kr.co.gidion.board.dto.BoardDTO;
+import kr.co.gidion.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +47,7 @@ public class BoardController {
 
     /**
      * @Method boardDetail
-     * @Description 게시판 상세내용을 조회한다.
+     * @Description 게시글 상세내용을 조회한다.
      * @return ModelAndView
      */
     @RequestMapping("/boardDetail/{id}")
@@ -122,10 +122,9 @@ public class BoardController {
      * @return BoardList.html
      */
     @DeleteMapping("/deleteBoard/{id}")
-    public String deleteBoard(BoardDTO boardDTO, @PathVariable("id") int id) throws Exception {
-        System.out.println(boardDTO.getId());
-        System.out.println(id);
-        boardService.deleteBoard(boardDTO.getId());
+    public String deleteBoard(@PathVariable("id") int id) throws Exception {
+        // System.out.println(id);
+        boardService.deleteBoard(id);
 
         return "redirect:/board/boardList";
     }

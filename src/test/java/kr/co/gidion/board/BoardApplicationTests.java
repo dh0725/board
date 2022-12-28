@@ -1,4 +1,4 @@
-package kr.co.gidion.boardMyBatis;
+package kr.co.gidion.board;
 
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BoardMyBatisApplicationTests {
+class BoardApplicationTests {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;

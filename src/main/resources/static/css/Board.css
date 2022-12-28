@@ -1,0 +1,9 @@
+/* 게시글 목록에 a 태그의 밑줄을 표시하지 않는다. */
+#boardTitle {
+    text-decoration-line: none;
+}
+
+/* 작성자 작성일자 조회수의 margin 을 없앤다. */
+#boardRegistId, #boardRegistDate, #boardContents {
+    margin: 0;
+}
