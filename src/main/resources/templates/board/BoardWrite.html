@@ -24,7 +24,7 @@
     <header th:insert="~{board/common/header::header}"></header>
 
     <div class="container">
-        <form id="frm" name="frm" method="post" action="/board/insertBoard">
+        <form id="frm" name="frm" method="post" action="/board/insertBoard" enctype="multipart/form-data">
             <div class="form-group row m-2">
                 <label for="boardTitle" class="col-sm-2 col-form-label"><strong>제목</strong></label>
                 <div class="col-sm-10">
@@ -46,6 +46,18 @@
             <div class="row justify-content-end m-2">
                 <div class="col-auto">
                     <input class="btn btn-primary" type="submit" role="button" value="글쓰기" />
+                </div>
+            </div>
+        </form>
+
+        <form id="fileForm" name="frm" method="post" action="/file/upload" enctype="multipart/form-data">
+            <div class="form-group row m-2">
+                <label for="inputFile" class="col-sm-2 col-form-label"><strong>첨부 파일</strong></label>
+                <div class="col-sm-10">
+                    <div class="custom-file" id="inputFile">
+                        <input name="uploadFiles" type="file" id="customFile" />
+                        <input type="submit">
+                    </div>
                 </div>
             </div>
         </form>
