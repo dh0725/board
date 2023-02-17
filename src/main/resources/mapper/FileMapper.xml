@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.gidion.board.mapper.FileMapper">
+    <!-- 파일 그룹 ID를 생성한다. -->
+    <select id="createSeqName" resultType="int">
+        CALL DI_SEQUENCES(#{sequenceName});
+    </select>
+
+    <!-- 파일 그룹 ID 시퀀스를 생성한다. -->
+    <select id="selectFileGroupId" resultType="int" parameterType="String">
+        SELECT nextval(#{sequenceName});
+    </select>
+
+    <!-- DB 에 파일에 대한 정보를 생성한다. -->
+    <insert id="insertUploadFiles">
+        INSERT INTO file_board (
+            file_group_id
+            , orgn_file_name
+            , chng_file_name
+            , file_size
+            , file_type
+            , regist_id
+            , regist_date
+        ) VALUES (
+            #{fileGroupId}
+            , #{orgnFileName}
+            , #{chngFileName}
+            , #{fileSize}
+            , #{fileType}
+            , #{registId}
+            , NOW()
+        )
+    </insert>
+</mapper>

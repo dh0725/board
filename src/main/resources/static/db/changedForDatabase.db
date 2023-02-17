@@ -1,0 +1,65 @@
+/*
+2023. 02. 14. 화
+    - 게시판(board) 테이블 생성
+*/
+CREATE TABLE `board` (
+  `board_id` int NOT NULL AUTO_INCREMENT COMMENT '게시판 ID',
+  `board_title` varchar(50) NOT NULL COMMENT '게시판 제목',
+  `board_contents` text COMMENT '게시판 내용',
+  `view_count` int NOT NULL DEFAULT '1' COMMENT '조회수',
+  `is_deleted` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'N' COMMENT '삭제여부',
+  `regist_id` varchar(10) DEFAULT NULL COMMENT '등록 ID',
+  `regist_date` datetime DEFAULT NULL COMMENT '등록 일자',
+  `update_id` varchar(10) DEFAULT NULL COMMENT '수정자 ID',
+  `update_date` datetime DEFAULT NULL COMMENT '수정 일자',
+  PRIMARY KEY (`board_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='게시판 - MyBatis'
+
+/*
+2023. 02. 17. 금
+    - 파일 게시판 테이블 생성 (file_board)
+    - 시퀀스 테이블 생성 (tbl_sequences)
+    - 시퀀스를 생성하는 프로시저 생성 (create_seq)
+    - 함수 생성 (nextval)
+*/
+-- 파일 게시판 테이블 생성 (file_board)
+CREATE TABLE `file_board` (
+	file_seq_id int NOT NULL AUTO_INCREMENT COMMENT '첨부파일 ID'
+	, file_group_id bigint NOT NULL COMMENT '첨부파일 그룹 ID'
+	, orgn_file_name nvarchar(100) NULL COMMENT '원본 파일명'
+	, chng_file_name nvarchar(100) NULL COMMENT '변경 파일명'
+	, file_size int NULL COMMENT '파일 크기'
+	, file_type nvarchar(100) NULL COMMENT '파일 타입'
+  	, `regist_id` varchar(10) DEFAULT NULL COMMENT '등록 ID'
+  	, `regist_date` datetime DEFAULT NULL COMMENT '등록 일자'
+  	, `update_id` varchar(10) DEFAULT NULL COMMENT '수정자 ID'
+  	, `update_date` datetime DEFAULT NULL COMMENT '수정 일자'
+  	, PRIMARY KEY (`file_seq_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='파일 게시판 - MyBatis'
+
+-- 시퀀스 테이블 생성 (tbl_sequences)
+CREATE TABLE SEQUENCES_TB (
+	NAME VARCHAR(32),
+    CURRVAL BIGINT UNSIGNED
+) ENGINE = InnoDB;
+
+-- 시퀀스를 생성하는 프로시저 생성 (create_seq)
+CREATE PROCEDURE `DI_SEQUENCES` (IN seq_name text)
+MODIFIES SQL DATA
+DETERMINISTIC
+BEGIN
+	DELETE FROM SEQUENCES_TB WHERE NAME = seq_name;
+    INSERT INTO SEQUENCES_TB VALUES(seq_name, 0);
+END
+
+-- 함수 생성 (nextval)
+CREATE FUNCTION `nextval` (seq_name VARCHAR(32))
+RETURNS BIGINT UNSIGNED
+MODIFIES SQL DATA
+DETERMINISTIC
+BEGIN
+	DECLARE RET BIGINT UNSIGNED;
+	UPDATE TBL_SEQUENCES SET currval = currval + 1 WHERE NAME = seq_name;
+    SELECT CURRVAL INTO ret FROM TBL_SEQUENCES WHERE NAME = seq_name;
+    RETURN ret;
+END

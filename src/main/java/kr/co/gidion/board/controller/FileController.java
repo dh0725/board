@@ -1,8 +1,10 @@
 package kr.co.gidion.board.controller;
 
 import kr.co.gidion.board.dto.FileDTO;
+import kr.co.gidion.board.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Class FileController
@@ -25,34 +26,28 @@ public class FileController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@Autowired
+	private FileService fileService;
+
 	@PostMapping("/upload")
-	public String upload(Model model, @RequestParam MultipartFile[] uploadFiles) {
+	public String upload(Model model, @RequestParam MultipartFile[] uploadFiles, HttpServletRequest request, FileDTO fileDTO) {
 		List<FileDTO> fileList = new ArrayList<>();
+		String sequenceName = request.getParameter("sequenceName");
+		sequenceName = sequenceName.replaceAll("-", "_");
 
-		for (MultipartFile files : uploadFiles) {
-			if (!files.isEmpty()) {
-				logger.debug("OriginalFilename : {}", files.getOriginalFilename());
-				logger.debug("ContentType : {}", files.getContentType());
+		try {
+			// 파일 그룹 ID를 생성한다.
+			int fileGroupId = fileService.getFileGroupId(sequenceName);
+			logger.debug("fileGroupdId : {}", fileGroupId);
 
-				double fileSize = (double) files.getSize();
-				double fileSizeInKB = fileSize / 1024;
-				double fileSizeInMB = fileSizeInKB / 1024;
+			// 생성한 파일 그룹 ID 를 DTO에 설정한다.
+			fileDTO.setFileGroupId(fileGroupId);
 
-				String strFileSize = fileSize + "Byte";
-				String strFileSizeInKB = String.format("%.2f", fileSizeInKB) + "KB";
-				String strFileSizeInMB = String.format("%.2f", fileSizeInMB) + "MB";
-
-				// logger.debug("fileSize : {}", strFileSize);
-				// logger.debug("fileSizeInKB : {}", strFileSizeInKB);
-				logger.debug("fileSizeInMB : {}", strFileSizeInMB);
-
-				FileDTO fileDTO = new FileDTO();
-			} else {
-				logger.info("file 없어요.");
-			}
+			// 파일 업로드 메소드를 호출한다.
+			fileService.uploadFiles(model, uploadFiles, fileDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		logger.info("끝!");
 
 		return "redirect:/board/boardList";
 	}
