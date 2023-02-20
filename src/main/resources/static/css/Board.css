@@ -4,6 +4,6 @@
 }
 
 /* 작성자 작성일자 조회수의 margin 을 없앤다. */
-#boardRegistId, #boardRegistDate, #boardContents {
+#boardRegistId, #boardRegistDate, #boardViewCnt, #boardContents, #boardFiles {
     margin: 0;
 }

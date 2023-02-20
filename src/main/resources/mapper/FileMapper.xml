@@ -8,7 +8,7 @@
     </select>
 
     <!-- 파일 그룹 ID 시퀀스를 생성한다. -->
-    <select id="selectFileGroupId" resultType="int" parameterType="String">
+    <select id="selectFileGroupId" parameterType="String" resultType="int">
         SELECT nextval(#{sequenceName});
     </select>
 
@@ -32,4 +32,19 @@
             , NOW()
         )
     </insert>
+
+    <select id="selectFileList" parameterType="int"
+            resultType="kr.co.gidion.board.dto.FileDTO">
+        SELECT
+            file_seq_id
+            , file_group_id
+            , orgn_file_name
+            , chng_file_name
+            , file_size
+            , file_type
+        FROM
+            file_board
+        WHERE
+            file_group_id = #{fileGroupId}
+    </select>
 </mapper>

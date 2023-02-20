@@ -11,11 +11,11 @@ public interface BoardMapper {
     // 게시판 목록을 조회한다.
     List<BoardDTO> selectBoardList();
 
+    // 조회한 게시글의 조회수를 1 증가한다.
+    void updateViewCnt(int id);
+
     // 게시글 상세내용을 조회한다.
     BoardDTO selectBoardDetail(int id);
-
-    // 조회수를 1 증가한다.
-    void updateViewCnt(int id);
 
     // 글을 쓴다.
     void insertBoard(BoardDTO boardDTO);

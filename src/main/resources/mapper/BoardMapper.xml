@@ -7,14 +7,15 @@
     /* BoardServiceImpl.selectBoardList */
         SELECT
             board_id
+            , file_group_id
             , board_title
             , board_contents
+            , is_deleted
             , view_count
             , regist_id
             , regist_date
             , update_id
             , update_date
-            , is_deleted
         FROM
             board
         WHERE
@@ -28,20 +29,23 @@
             resultType="BoardDTO">
     /* BoardServiceImpl.selectBoardDetail */
         SELECT
-            board_id
-            , board_title
-            , board_contents
-            , view_count
-            , regist_id
-            , regist_date
-            , update_id
-            , update_date
-            , is_deleted
+            T1.board_id
+            , T1.file_group_id
+            , T2.orgn_file_name
+            , T1.board_title
+            , T1.board_contents
+            , T1.view_count
+            , T1.regist_id
+            , T1.regist_date
+            , T1.update_id
+            , T1.update_date
+            , T1.is_deleted
         FROM
-            board
+            board T1
+        LEFT JOIN file_board T2 ON T2.file_group_id = T1.file_group_id
         WHERE
-            board_id = #{board_id}
-            AND is_deleted = 'N'
+            T1.board_id = #{board_id}
+            AND T1.is_deleted = 'N'
     </select>
 
     <!-- 조회한 게시글의 조회수를 1 증가한다. -->
@@ -59,13 +63,17 @@
     <insert id="insertBoard" parameterType="BoardDTO">
     /* BoardServiceImpl.insertBoard */
         INSERT INTO board (
-            board_title
+            file_group_id
+            , board_title
             , board_contents
+            , is_deleted
             , regist_id
             , regist_date
         ) VALUES (
-            #{boardTitle}
+            #{fileGroupId}
+            , #{boardTitle}
             , #{boardContents}
+            , #{isDeleted}
             , #{registId}
             , NOW()
         )

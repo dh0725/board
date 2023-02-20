@@ -1,7 +1,11 @@
 package kr.co.gidion.board.controller;
 
 import kr.co.gidion.board.dto.BoardDTO;
+import kr.co.gidion.board.dto.FileDTO;
 import kr.co.gidion.board.service.BoardService;
+import kr.co.gidion.board.service.FileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +24,13 @@ import java.util.List;
 @Controller
 public class BoardController {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private FileService fileService;
 
     /**
      * @Method openBoardList
@@ -52,8 +61,15 @@ public class BoardController {
      */
     @RequestMapping("/boardDetail/{id}")
     public String boardDetail(Model model, @PathVariable("id") int id) {
-        BoardDTO boardDTO = boardService.selectBoardDetail(id);         // service 호출
+        // 조회한 게시글의 조회수를 1 증가한다.
+        boardService.updateViewCnt(id);
+
+        // 게시글 상세내용을 조회한다.
+        BoardDTO boardDTO = boardService.selectBoardDetail(id);                       // service 호출
+        FileDTO fileDTO = fileService.selectFileList(boardDTO.getFileGroupId());      // service 호출
+
         model.addAttribute("board", boardDTO);
+        model.addAttribute("file", fileDTO);
 
         return "/board/boardDetail";
 
@@ -79,19 +95,6 @@ public class BoardController {
     }
 
     /**
-     * @Method insertBoard
-     * @Description 글을 쓴다.
-     * @return BoardList.html
-     */
-    @RequestMapping("/insertBoard")
-    public String insertBoard(BoardDTO boardDTO) {
-        boardService.insertBoard(boardDTO);
-
-        return "redirect:/board/boardList";
-    }
-
-
-    /**
      * @Method boardEdit
      * @Description 글 수정 화면을 호출한다.
      * @return boardEdit.html
@@ -105,6 +108,18 @@ public class BoardController {
     }
 
     /**
+     * @Method insertBoard
+     * @Description 글을 쓴다.
+     * @return BoardList.html
+     */
+    @RequestMapping("/insertBoard")
+    public String insertBoard(BoardDTO boardDTO) {
+        boardService.insertBoard(boardDTO);
+
+        return "redirect:/board/boardList";
+    }
+
+    /**
      * @Method updateBoard
      * @Description 글을 수정한다.
      * @return BoardList.html
@@ -113,7 +128,7 @@ public class BoardController {
     public String updateBoard(BoardDTO boardDTO) {
         boardService.updateBoard(boardDTO);
 
-        return "redirect:/board/boardList";
+        return "redirect:/board/boardDetail/{id}";
     }
 
     /**
@@ -123,9 +138,9 @@ public class BoardController {
      */
     @DeleteMapping("/deleteBoard/{id}")
     public String deleteBoard(@PathVariable("id") int id) throws Exception {
-        // System.out.println(id);
         boardService.deleteBoard(id);
 
         return "redirect:/board/boardList";
     }
+
 }

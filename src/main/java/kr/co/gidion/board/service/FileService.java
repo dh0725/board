@@ -11,4 +11,7 @@ public interface FileService {
 
 	// 파일을 업로드 한다.
 	int uploadFiles(Model model, @RequestParam MultipartFile[] uploadFiles, FileDTO fileDTO);
+
+	// 게시글에 첨부된 파일을 조회한다.
+	FileDTO selectFileList(int fileGroupId);
 }

@@ -14,7 +14,5 @@ public class FileDTO {
 	private String fileType;
 	private String registId;
 	private String registDate;
-	private String updateId;
-	private String updateDate;
 
 }

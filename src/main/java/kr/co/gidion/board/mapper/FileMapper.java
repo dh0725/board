@@ -3,6 +3,8 @@ package kr.co.gidion.board.mapper;
 import kr.co.gidion.board.dto.FileDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface FileMapper {
 
@@ -14,4 +16,7 @@ public interface FileMapper {
 
 	// DB 에 파일에 대한 정보를 생성한다.
 	void insertUploadFiles(FileDTO fileDTO);
+
+	// 게시글에 첨부된 파일을 조회한다.
+	FileDTO selectFileList(int fileGroupId);
 }
