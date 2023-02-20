@@ -4,7 +4,7 @@
 <mapper namespace="kr.co.gidion.board.mapper.BoardMapper">
     <!-- 게시판 목록을 조회한다. -->
     <select id="selectBoardList" resultType="BoardDTO">
-    /* BoardServiceImpl.selectBoardList */
+    /* BoardService.selectBoardList */
         SELECT
             board_id
             , file_group_id

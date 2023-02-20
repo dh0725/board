@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 public class BoardController {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    // private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private BoardService boardService;
@@ -35,12 +35,12 @@ public class BoardController {
     /**
      * @Method openBoardList
      * @Description 게시판 목록을 조회한다.
-     * @return ModelAndView
+     * @return boardList.html
      */
     @RequestMapping("/boardList")
     public String boardList(Model model) {
-        List<BoardDTO> list = boardService.selectBoardList();       // service 호출
-        model.addAttribute("list", list);
+        List<BoardDTO> boardList = boardService.selectBoardList();       // service 호출
+        model.addAttribute("boardList", boardList);
 
         return "/board/boardList";
 
